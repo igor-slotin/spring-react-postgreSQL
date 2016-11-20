@@ -3,9 +3,11 @@ package carsell.services;
 import carsell.exceptions.user.UserFoundException;
 import carsell.exceptions.user.IncorrectUserParamsException;
 
-import carsell.exceptions.user.UserNotFoundException;
+import carsell.exceptions.NotFoundException;
+import carsell.models.Account;
 import carsell.models.User;
 import carsell.repo.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +16,12 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final AccountService accountService;
 
     @Transactional
     public User addUser(User user) {
         this.userIsExist(user.getUsername());
+        user.setAccount(accountService.createAccount(user));
         return this.userRepository.save(user);
     }
 
@@ -30,7 +30,7 @@ public class UserService {
         if (user.isPresent()) {
             return user.get();
         } else {
-            throw new UserNotFoundException(userId);
+            throw new NotFoundException(userId, "User");
         }
     }
 
@@ -53,5 +53,11 @@ public class UserService {
         if (user.isPresent()) {
             throw new UserFoundException(username);
         }
+    }
+
+    @Autowired
+    public UserService(UserRepository userRepository, AccountService accountService) {
+        this.userRepository = userRepository;
+        this.accountService = accountService;
     }
 }

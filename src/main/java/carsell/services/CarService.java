@@ -1,11 +1,12 @@
 package carsell.services;
 
-import carsell.exceptions.car.CarNotFoundException;
+import carsell.exceptions.NotFoundException;
 import carsell.exceptions.car.SaveCarException;
 import carsell.models.Car;
 import carsell.models.User;
 import carsell.repo.CarRepository;
 import carsell.repo.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -34,7 +35,7 @@ public class CarService {
             carObj.setIsSell(!isSell);
             return this.carRepository.save(carObj);
         } else {
-            throw new CarNotFoundException(carId);
+            throw new NotFoundException(carId, "Car");
         }
     }
 
@@ -46,8 +47,10 @@ public class CarService {
         }
     }
 
-    public CarService(CarRepository carRepository, UserRepository userRepository) {
+
+    @Autowired
+    public CarService(CarRepository carRepository, UserService userService) {
         this.carRepository = carRepository;
-        this.userService = new UserService(userRepository);
+        this.userService = userService;
     }
 }
