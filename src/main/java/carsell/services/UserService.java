@@ -1,9 +1,9 @@
 package carsell.services;
 
-import carsell.exceptions.UserFoundException;
-import carsell.exceptions.IncorrectUserParamsException;
+import carsell.exceptions.user.UserFoundException;
+import carsell.exceptions.user.IncorrectUserParamsException;
 
-import carsell.exceptions.UserNotFoundException;
+import carsell.exceptions.user.UserNotFoundException;
 import carsell.models.User;
 import carsell.repo.UserRepository;
 import org.springframework.stereotype.Service;

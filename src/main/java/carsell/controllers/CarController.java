@@ -1,7 +1,6 @@
 package carsell.controllers;
 
 import carsell.models.Car;
-import carsell.models.User;
 import carsell.repo.CarRepository;
 import carsell.repo.UserRepository;
 import carsell.services.CarService;
@@ -14,9 +13,6 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/api/car")
 public class CarController {
-
-    private final CarRepository carRepository;
-    private final UserRepository userRepository;
     private final CarService carService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/all")
@@ -26,29 +22,16 @@ public class CarController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/{userId}/add")
     ResponseEntity<?> addCar(@PathVariable Long userId, @RequestBody Car input) {
-        User user = getSeller(userId);
-        if (user != null) {
-            try {
-                Car car = carRepository.save(
-                        new Car(user, input.getModel(), input.getYear(), input.getColor(), input.getPrice())
-                );
-                return ResponseEntity.ok(car);
-            } catch (Exception e) {
-                return ResponseEntity.status(404).build();
-            }
-        } else {
-            return ResponseEntity.status(404).body("User not found");
-        }
+        return ResponseEntity.ok(this.carService.addCar(userId, input));
     }
 
-    private User getSeller (Long userId) {
-        return this.userRepository.findOne(userId);
+    @RequestMapping(method = RequestMethod.POST, value = "/update/{userId}/{carId}")
+    ResponseEntity<?> updateIsSell(@PathVariable Long userId, @PathVariable Long carId) {
+        return ResponseEntity.ok(this.carService.updateIsSell(userId, carId));
     }
 
     @Autowired
     public CarController(CarRepository carRepository, UserRepository userRepository) {
-        this.carRepository = carRepository;
-        this.userRepository = userRepository;
         this.carService = new CarService(carRepository, userRepository);
     }
 }
