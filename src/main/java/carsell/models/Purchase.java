@@ -1,5 +1,7 @@
 package carsell.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,16 +10,29 @@ public class Purchase {
     @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     private User seller;
 
+    @JsonIgnore
     @ManyToOne
     private User buyer;
 
     @OneToOne
     private Car car;
 
+    @OneToOne
+    public Payments payments;
+
     private boolean purchasePayed = false;
+
+    public Payments getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Payments payments) {
+        this.payments = payments;
+    }
 
     public boolean isPurchasePayed() {
         return purchasePayed;

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,15 @@ public class AccountService {
         Account account = findAccount(userId);
         account.removeFromBalance(balance);
         this.accountRepository.save(account);
+    }
+
+    public Boolean availableOnBalance (Long userId, Integer summ) {
+        return getBalance(userId) >= summ;
+    }
+
+    public Integer getBalance (Long userId) {
+        Account account = findAccount(userId);
+        return account.getBalance();
     }
 
     private Account findAccount (Long userId) {

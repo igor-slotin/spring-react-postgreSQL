@@ -7,6 +7,7 @@ import carsell.exceptions.NotFoundException;
 import carsell.models.Account;
 import carsell.models.User;
 import carsell.repo.UserRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,12 @@ public class UserService {
         } else {
             throw new NotFoundException(userId, "User");
         }
+    }
+
+    public Boolean compareUsers (Long userId1, Long userId2) {
+        User user1 = getUser(userId1);
+        User user2 = getUser(userId2);
+        return user1.getUsername().equals(user2.getUsername());
     }
 
     public User login(User input) {

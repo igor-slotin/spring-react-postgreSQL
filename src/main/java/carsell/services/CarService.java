@@ -18,32 +18,52 @@ public class CarService {
     private UserService userService;
 
     public Collection<Car> getSellCars() {
-        return this.carRepository.findByIsSell(true);
+        return carRepository.findByIsSell(true);
     }
 
-    public Car addCar(Long userId, Car input) {
-        User user = this.userService.getUser(userId);
-        return this.saveCar(new Car(user, input.getModel(), input.getYear(), input.getColor(), input.getPrice()));
-    }
-
-    public Car updateIsSell(Long userId, Long carId) {
-        User user = this.userService.getUser(userId);
-        Optional<Car> car = this.carRepository.findById(carId);
-        if (car.isPresent()) {
-            Car carObj = car.get();
-            Boolean isSell = carObj.getIsSell();
-            carObj.setIsSell(!isSell);
-            return this.carRepository.save(carObj);
+    public Car getCar(Long carId) {
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        if (optionalCar.isPresent()) {
+            return optionalCar.get();
         } else {
             throw new NotFoundException(carId, "Car");
         }
     }
 
+    public Car addCar(Long userId, Car input) {
+        User user = userService.getUser(userId);
+        return saveCar(new Car(user, input.getModel(), input.getYear(), input.getColor(), input.getPrice()));
+    }
+
+    public Car buyCar (Long userId, Long carId) {
+        Car car = getCar(carId);
+        car.setUser(userService.getUser(userId));
+        car.setIsSell(false);
+        return carRepository.save(car);
+    }
+
     private Car saveCar (Car car) {
         try {
-            return this.carRepository.save(car);
+            return carRepository.save(car);
         } catch (SaveCarException e) {
             throw new SaveCarException();
+        }
+    }
+
+    public Car updateIsSell(Long userId, Long carId) {
+        User user = userService.getUser(userId);
+        Optional<Car> car = carRepository.findById(carId);
+        if (car.isPresent()) {
+            Car carObj = car.get();
+            if (user.getUsername().equals(carObj.getUser().getUsername())) {
+                Boolean isSell = carObj.getIsSell();
+                carObj.setIsSell(!isSell);
+                return carRepository.save(carObj);
+            } else {
+                throw new NotFoundException(carId, "Car");
+            }
+        } else {
+            throw new NotFoundException(carId, "Car");
         }
     }
 

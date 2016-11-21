@@ -16,12 +16,6 @@ public class User {
     @OneToMany(mappedBy = "seller")
     private Set<Purchase> sells = new HashSet<>();
 
-    @OneToMany(mappedBy = "buyer")
-    private Set<Payments> payments = new HashSet<>();
-
-    @OneToMany(mappedBy = "seller")
-    private Set<Payments> earnings = new HashSet<>();
-
     @OneToOne(mappedBy = "user")
     private Account account;
 
@@ -55,22 +49,6 @@ public class User {
 
     public void setSells(Set<Purchase> sells) {
         this.sells = sells;
-    }
-
-    public Set<Payments> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Set<Payments> payments) {
-        this.payments = payments;
-    }
-
-    public Set<Payments> getEarnings() {
-        return earnings;
-    }
-
-    public void setEarnings(Set<Payments> earnings) {
-        this.earnings = earnings;
     }
 
     public Account getAccount() {
