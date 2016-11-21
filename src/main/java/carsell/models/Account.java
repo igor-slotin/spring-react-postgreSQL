@@ -9,12 +9,12 @@ import javax.persistence.OneToOne;
 public class Account {
     @Id
     @GeneratedValue
-    private Long id;
+    public Long id;
 
     @OneToOne
     private User user;
 
-    private Integer balance;
+    private Integer balance = 0;
 
     public Integer getBalance() {
         return balance;
@@ -30,9 +30,8 @@ public class Account {
         return this.balance;
     }
 
-    public Account(User user, Integer balance) {
+    public Account(User user) {
         this.user = user;
-        this.balance = balance;
     }
 
     Account() {}

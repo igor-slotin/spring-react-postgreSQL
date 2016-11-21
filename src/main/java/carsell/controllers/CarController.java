@@ -31,7 +31,7 @@ public class CarController {
     }
 
     @Autowired
-    public CarController(CarRepository carRepository, UserRepository userRepository) {
-        this.carService = new CarService(carRepository, userRepository);
+    public CarController(CarService carService) {
+        this.carService = carService;
     }
 }

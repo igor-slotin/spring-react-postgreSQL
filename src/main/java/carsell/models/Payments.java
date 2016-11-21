@@ -10,22 +10,6 @@ public class Payments {
     @GeneratedValue
     private Long id;
 
-    public User getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
-    }
-
-    public User getSeller() {
-        return seller;
-    }
-
-    public void setSeller(User seller) {
-        this.seller = seller;
-    }
-
     public Purchase getPurchase() {
         return purchase;
     }
@@ -42,21 +26,14 @@ public class Payments {
         this.summ = summ;
     }
 
-    @ManyToOne
-    private User buyer;
-
-    @ManyToOne
-    private User seller;
-
+    @JsonIgnore
     @OneToOne
     private Purchase purchase;
 
     private Integer summ;
 
-    public Payments(Purchase purchase, User buyer, User seller, Integer summ) {
+    public Payments(Purchase purchase, Integer summ) {
         this.purchase = purchase;
-        this.buyer = buyer;
-        this.seller = seller;
         this.summ = summ;
     }
 
