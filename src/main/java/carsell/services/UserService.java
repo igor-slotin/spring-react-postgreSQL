@@ -1,11 +1,14 @@
 package carsell.services;
 
-import carsell.exceptions.UserFoundException;
-import carsell.exceptions.IncorrectUserParamsException;
+import carsell.exceptions.user.UserFoundException;
+import carsell.exceptions.user.IncorrectUserParamsException;
 
-import carsell.exceptions.UserNotFoundException;
+import carsell.exceptions.NotFoundException;
+import carsell.models.Account;
 import carsell.models.User;
 import carsell.repo.UserRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +17,12 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final AccountService accountService;
 
     @Transactional
     public User addUser(User user) {
         this.userIsExist(user.getUsername());
+        user.setAccount(accountService.createAccount(user));
         return this.userRepository.save(user);
     }
 
@@ -30,8 +31,14 @@ public class UserService {
         if (user.isPresent()) {
             return user.get();
         } else {
-            throw new UserNotFoundException(userId);
+            throw new NotFoundException(userId, "User");
         }
+    }
+
+    public Boolean compareUsers (Long userId1, Long userId2) {
+        User user1 = getUser(userId1);
+        User user2 = getUser(userId2);
+        return user1.getUsername().equals(user2.getUsername());
     }
 
     public User login(User input) {
@@ -53,5 +60,11 @@ public class UserService {
         if (user.isPresent()) {
             throw new UserFoundException(username);
         }
+    }
+
+    @Autowired
+    public UserService(UserRepository userRepository, AccountService accountService) {
+        this.userRepository = userRepository;
+        this.accountService = accountService;
     }
 }

@@ -5,3 +5,4 @@
 src/main/frontend/node_modules
 src/main/resources/static/build
 src/main/resources/application.properties
+.DS_Store

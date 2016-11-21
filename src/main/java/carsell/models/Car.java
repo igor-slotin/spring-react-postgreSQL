@@ -14,7 +14,7 @@ public class Car {
 
     @Id
     @GeneratedValue
-    private Long id;
+    public Long id;
 
     Car() {}
 
@@ -36,6 +36,9 @@ public class Car {
     public User getUser() {
         return user;
     }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getModel() {
         return model;
@@ -50,6 +53,9 @@ public class Car {
 
     public void setIsSell (Boolean isSell) {
         this.isSell = isSell;
+    }
+    public Boolean getIsSell () {
+        return isSell;
     }
 
     public String getColor() {

@@ -1,7 +1,6 @@
 package carsell.controllers;
 
 import carsell.models.User;
-import carsell.repo.UserRepository;
 import carsell.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-
-    private final UserRepository userRepository;
     private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-        this.userService = new UserService(userRepository);
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
@@ -33,7 +29,7 @@ public class UserController {
         return ResponseEntity.ok(user.getId());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{userid}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{userId}")
     ResponseEntity<?> getUser (@PathVariable Long userId) {
         User user = userService.getUser(userId);
         return ResponseEntity.ok(user);
