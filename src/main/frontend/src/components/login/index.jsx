@@ -28,10 +28,11 @@ const style = {
 };
 
 class Login extends React.Component {
+    goBack() { hashHistory.goBack() }
     render() {
         return <MTP>
             <Paper style={style.PaperStyle}>
-                <FloatingActionButton style={style.BackButtonStyle} onClick={()=> hashHistory.goBack()}>
+                <FloatingActionButton style={style.BackButtonStyle} onClick={this.goBack}>
                     <BackButton />
                 </FloatingActionButton>
                 <div style={style.mainBlock}>
