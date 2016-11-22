@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "build": "./node_modules/.bin/webpack --display-modules --config ./webpack.config.js",
-    "dev-server": "node --harmony node_modules/.bin/webpack-dev-server --open --content-base src/"
+    "dev-server": "node --harmony node_modules/.bin/webpack-dev-server --port 3000 --open --content-base src/"
   },
   "dependencies": {
     "css-loader": "0.25.0",
