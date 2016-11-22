@@ -28,7 +28,10 @@ const style = {
 };
 
 class Login extends React.Component {
-    goBack() { hashHistory.goBack() }
+    goBack(params) {
+        console.log(params);
+        hashHistory.goBack()
+    }
     render() {
         return <MTP>
             <Paper style={style.PaperStyle}>

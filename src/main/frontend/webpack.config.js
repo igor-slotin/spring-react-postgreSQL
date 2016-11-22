@@ -3,10 +3,15 @@ const webpack = require('webpack');
 const config = {
     devtool: 'sourcemap',
     context: __dirname+'/src',
-    entry: './app.jsx',
+    entry: {
+        app: './app.jsx',
+        vendor: [
+            'whatwg-fetch'
+        ]
+    },
     output: {
         path: __dirname,
-        filename: '../resources/static/build/app.js'
+        filename: '../resources/static/build/[name].js'
     },
     resolve:{
         modules: [
@@ -16,7 +21,7 @@ const config = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV || "dev")
             }
         })
     ],
@@ -28,7 +33,8 @@ const config = {
                     {
                         loader: "babel-loader",
                         options: {
-                            presets: ['es2015', 'react']
+                            presets: ['latest', 'react'],
+                            plugins: ['transform-object-rest-spread']
                         }
                     }
                 ]
@@ -37,7 +43,11 @@ const config = {
                 test: /.js?$/,
                 use:[
                     {
-                        loader: "babel-loader"
+                        loader: "babel-loader",
+                        options: {
+                            presets: ['latest'],
+                            plugins: ['transform-object-rest-spread']
+                        }
                     }
                 ]
             }
