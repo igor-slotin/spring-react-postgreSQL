@@ -17,8 +17,6 @@ const store = createStore();
 import Hello from './components/home.jsx';
 import Empty from './components/empty.jsx';
 import Login from './components/login/index.jsx';
-import endpoints from './endpoints';
-console.log(endpoints);
 const Logged = <FlatButton label="Login" onClick={() => hashHistory.push('/login')}></FlatButton>;
 
 class App extends Component{

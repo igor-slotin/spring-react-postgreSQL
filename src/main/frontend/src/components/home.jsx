@@ -6,10 +6,9 @@ import * as actions from '../actions/home'
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.props.actions.getCars();
+        this.props.actions.loadCars();
     }
     render() {
-        console.log(this.props);
         return <h1>Hello, {this.props.cars.data.length}</h1>
     }
 }
