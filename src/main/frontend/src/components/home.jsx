@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 
 import * as actions from '../actions/home'
+import auth from '../services/auth';
 
 const helpStyle = {
     paddingLeft: '30px'
@@ -18,11 +19,10 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.props.actions.loadCars();
-
     }
 
     checkUserLogin() {
-        return false;
+        return !auth.isEmpty();
     }
 
     render() {
