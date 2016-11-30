@@ -17,6 +17,8 @@ const store = createStore();
 import Hello from './components/home.jsx';
 import Empty from './components/empty.jsx';
 import Login from './components/login/index.jsx';
+import Registration from './components/registration/index.jsx';
+
 import endpoints from './endpoints';
 console.log(endpoints);
 const Logged = <FlatButton label="Login" onClick={() => hashHistory.push('/login')}></FlatButton>;
@@ -44,6 +46,7 @@ render((
                 <IndexRoute component={Hello} />
                 <Route path="/empty" component={Empty} />
                 <Route path="/login" component={Login} />
+                <Route path="/registration" component={Registration} />
             </Route>
         </Router>
     </Provider>

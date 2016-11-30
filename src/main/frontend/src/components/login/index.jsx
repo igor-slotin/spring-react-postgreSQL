@@ -28,9 +28,12 @@ const style = {
 };
 
 class Login extends React.Component {
-    goBack(params) {
-        console.log(params);
+    goBack() {
         hashHistory.goBack()
+    }
+
+    goRegistration(){
+        hashHistory.push('/registration')
     }
     render() {
         return <MTP>
@@ -48,6 +51,9 @@ class Login extends React.Component {
                                 hintText="Password"
                     />
                     <RaisedButton label="LOGIN" fullWidth={true} />
+                    <br/>
+                    <RaisedButton onClick={this.goRegistration} label="SIGN UP" fullWidth={true} />
+
                 </div>
             </Paper>
         </MTP>;
