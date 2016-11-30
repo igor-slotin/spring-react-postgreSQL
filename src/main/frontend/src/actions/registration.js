@@ -1,5 +1,7 @@
-import { ACTIVE_QUERY , QUERY_FAILURE ,QUERY_SUCCESS ,CHANGE_PASSWORDS,CHANGE_USERNAME,CHANGE_PASSWORDS_FAILURE } from '../constants/registration';
+import { ACTIVE_QUERY , QUERY_FAILURE ,QUERY_SUCCESS ,CHANGE_PASSWORDS,CHANGE_USERNAME,CHANGE_PASSWORDS_FAILURE,POST_QUERY } from '../constants/registration';
 import endpoints from '../endpoints';
+import auth from '../services/auth'
+import {hashHistory} from 'react-router';
 
 export function registration(username,password) {
     return dispatch => {
@@ -15,7 +17,6 @@ export function registration(username,password) {
             body: JSON.stringify({username, password})
         }).then(res => {
             res.json().then((data) => {
-                console.log(data);
 
                 if(data.status){
                     dispatch({
@@ -23,11 +24,20 @@ export function registration(username,password) {
                         payload: data
                     })
                 }else{
+                    auth.set(data);
+                    hashHistory.push('/user');
                     dispatch({
                         type: QUERY_SUCCESS,
                         payload: data
                     })
                 }
+
+            }).then(()=>{
+                setTimeout(()=>{
+                    dispatch({
+                        type: POST_QUERY
+                    })
+                }, 3000)
 
             });
 
@@ -48,9 +58,6 @@ export function inputPasswords(password,confirmPassword) {
                 payload:{password,confirmPassword}
             });
         }
-
-
-
     }
 }
 
@@ -60,6 +67,5 @@ export function inputUsername(username) {
             type: CHANGE_USERNAME,
             payload:username
         });
-
     }
 }

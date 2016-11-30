@@ -8,7 +8,7 @@ import BackButton from 'material-ui/svg-icons/navigation/arrow-back';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from  'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/registration'
+import * as actions from '../actions/registration'
 import Snackbar from 'material-ui/Snackbar';
 
 
@@ -59,7 +59,7 @@ class Registration extends React.Component {
 
     registration(){
         console.log(this.props.username,this.props.password);
-        this.actionRegistration(this.username,this.password);
+        this.actionRegistration(this.props.username,this.props.password);
     }
 
     render() {

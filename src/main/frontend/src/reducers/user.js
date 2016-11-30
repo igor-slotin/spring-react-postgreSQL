@@ -1,5 +1,5 @@
 const initialState = {
-    name: "Василий"
+  name: "Василий"
 };
 
 export default (state = initialState) => state;

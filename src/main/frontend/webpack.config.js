@@ -6,7 +6,8 @@ const config = {
     entry: {
         app: './app.jsx',
         vendor: [
-            'whatwg-fetch'
+            'whatwg-fetch',
+            'babel-polyfill'
         ]
     },
     output: {
@@ -33,8 +34,8 @@ const config = {
                     {
                         loader: "babel-loader",
                         options: {
-                            presets: ['latest', 'react'],
-                            plugins: ['transform-object-rest-spread']
+                            presets: ['stage-3' , 'latest', 'react'],
+                            plugins: ['transform-object-rest-spread', 'transform-regenerator']
                         }
                     }
                 ]
@@ -45,8 +46,8 @@ const config = {
                     {
                         loader: "babel-loader",
                         options: {
-                            presets: ['latest'],
-                            plugins: ['transform-object-rest-spread']
+                            presets: ['stage-3', 'latest'],
+                            plugins: ['transform-object-rest-spread', 'transform-regenerator']
                         }
                     }
                 ]

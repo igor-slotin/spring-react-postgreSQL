@@ -1,19 +1,24 @@
-import { START_LOADING, LOADING_SUCCESS } from '../constants/home';
-import endpoints from '../endpoints';
+import {START_LOADING, LOADING_SUCCESS, LOADING_FAILURE} from '../constants/home';
+import {getCars} from '../rest/home';
 
-export function getCars() {
-    return dispatch => {
-        dispatch({
-            type: START_LOADING
-        });
+export const loadCars = () => {
+  return (dispatch) => {
+    dispatch({
+      type: START_LOADING
+    });
 
-        fetch(`${endpoints}/api/car/all`).then(res => {
-            res.json().then( (data) => {
-                dispatch({
-                    type: LOADING_SUCCESS,
-                    payload: data
-                });
-            })
-        });
-    }
-}
+    getCars().then(data => {
+      dispatch({
+        type: LOADING_SUCCESS,
+        payload: data
+      });
+    }, () => {
+      dispatch({
+        type: LOADING_FAILURE,
+        payload: "Loading failed"
+      });
+    });
+  }
+};
+
+
