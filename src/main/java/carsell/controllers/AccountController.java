@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
     private final AccountService accountService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{userId}/increase")
+    @RequestMapping(method = RequestMethod.PUT, value = "/{userId}")
     ResponseEntity<?> increaseBalance (@PathVariable Long userId, @RequestBody BalanceObject balanceObject) {
         accountService.increaseBalance(userId, balanceObject.getBalance());
         return ResponseEntity.ok("Added");

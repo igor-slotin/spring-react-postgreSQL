@@ -58,7 +58,7 @@ class App extends Component {
   }
 }
 
-App = connect((state) => {return {state: state}})(App);
+App = connect((state) => {return {state}})(App);
 
 render((
   <Provider store={store}>

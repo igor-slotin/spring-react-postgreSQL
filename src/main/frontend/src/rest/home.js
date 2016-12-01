@@ -1,5 +1,7 @@
 import endpoints from '../endpoints';
 
 export const getCars = () => {
-  return fetch(`${endpoints}/api/car/all`).then(res => res.json())
+  return fetch(`${endpoints}/api/car`).then(res => {
+    return res.json()
+  })
 };

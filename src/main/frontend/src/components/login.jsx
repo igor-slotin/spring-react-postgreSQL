@@ -30,11 +30,17 @@ const style = {
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.checkAuth()
   }
 
   changeUsername(e) {
-    console.log(e.target.value);
     this.props.actions.setUsername(e.target.value)
+  }
+
+  checkAuth() {
+    if (!auth.isEmpty()) {
+      hashHistory.push('/user');
+    }
   }
 
   changePassword(e) {
@@ -49,9 +55,7 @@ class Login extends React.Component {
   }
 
   componentWillReceiveProps() {
-    if (!auth.isEmpty()) {
-      hashHistory.push('/user')
-    };
+    this.checkAuth();
   }
 
   goRegistration(){

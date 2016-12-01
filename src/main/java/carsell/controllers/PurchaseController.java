@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PurchaseController {
     private final PurchaseService purchaseService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/buy/{userId}/{carId}")
+    @RequestMapping(method = RequestMethod.POST, value = "/{userId}/{carId}")
     ResponseEntity<?> buyCar(@PathVariable Long userId, @PathVariable Long carId) {
         return ResponseEntity.ok(this.purchaseService.buyCar(userId, carId));
     }

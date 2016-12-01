@@ -21,6 +21,9 @@ public class UserService {
 
     @Transactional
     public User addUser(User user) {
+        if (user.getPassword().equals("") || user.getUsername().equals("")) {
+            throw new IncorrectUserParamsException();
+        }
         this.userIsExist(user.getUsername());
         user.setAccount(accountService.createAccount(user));
         return this.userRepository.save(user);
