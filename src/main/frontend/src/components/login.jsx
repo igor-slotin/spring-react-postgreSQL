@@ -58,10 +58,6 @@ class Login extends React.Component {
     this.checkAuth();
   }
 
-  goRegistration(){
-    hashHistory.push('/registration')
-  }
-
   render() {
     return <MTP>
       <div>
@@ -82,7 +78,6 @@ class Login extends React.Component {
                      onChange={this.changePassword.bind(this)}
           />
           <RaisedButton onClick={this.submitForm.bind(this)} label="LOGIN" fullWidth={true}/>
-          <RaisedButton onClick={this.goRegistration} label="SIGN UP" fullWidth={true} />
         </div>
       </div>
     </MTP>;

@@ -1,7 +1,8 @@
 import {START_LOADING, LOADING_SUCCESS} from '../constants/home'
 const initialState = {
   data: [],
-  fetching: false
+  fetching: false,
+  showCars:false
 };
 
 export default (state = initialState, action) => {
@@ -9,7 +10,7 @@ export default (state = initialState, action) => {
     case START_LOADING:
       return {...state, fetching: true};
     case LOADING_SUCCESS:
-      return {...state, data: action.payload, fetching: false};
+      return {...state, data: action.payload.cars, fetching: false ,showCars:action.payload.showCars};
     default:
       return state;
   }

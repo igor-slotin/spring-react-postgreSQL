@@ -8,9 +8,16 @@ export const loadCars = () => {
     });
 
     getCars().then(data => {
+      let showCars;
+
+      if(data.length == 0){
+        showCars = false;
+      }else if(data.length > 0){
+        showCars = true;
+      }
       dispatch({
         type: LOADING_SUCCESS,
-        payload: data
+        payload: {cars:data,showCars}
       });
     }, () => {
       dispatch({

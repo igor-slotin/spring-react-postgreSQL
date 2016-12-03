@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
         case QUERY_FAILURE:
             return { ...state, userId: null, fetching: false, message:true,messageText:action.payload.message};
         case POST_QUERY:
-            return { ...state, message:false,messageText:'null'};
+            return { ...state, message:false,messageText:null};
         case CHANGE_PASSWORDS:
             return {
                 ...state,

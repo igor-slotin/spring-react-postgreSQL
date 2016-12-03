@@ -27,11 +27,22 @@ const style = {
     color: '#fff',
     fontSize: '3em',
     margin: '0.1em'
+  },
+  elementForNotLoggedState:{
+    lineHeight: '48px'
+  },
+  authButtons:{
+    color:'white'
   }
 };
-const LoginButton = <FlatButton label="Login" onClick={() => hashHistory.push('/login')} />;
 const LogoutButton = <FlatButton label="Logout" onClick={() => {auth.remove();hashHistory.push('/login')}}/>;
-const carsellButton = <FlatButton style={style.carsellButton} label="Car sell" onClick={() => hashHistory.push('/')}/>;
+const carsellButton = <FlatButton style={style.carsellButton} label="Car sell" onClick={() =>  hashHistory.push('/')}/>;
+const elementForNotLoggedState = <span style={style.elementForNotLoggedState} >
+  <FlatButton style={style.authButtons} label="Login" onClick={() => hashHistory.push('/login')} />
+  <FlatButton style={style.authButtons} label="SING UP" onClick={() => hashHistory.push('/registration')} />
+</span>;
+
+
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +60,7 @@ class App extends Component {
       <div>
         <MuiThemeProvider>
           <AppBar iconElementLeft={carsellButton}
-                  iconElementRight={this.state.logged ? LogoutButton : LoginButton}
+                  iconElementRight={this.state.logged ? LogoutButton : elementForNotLoggedState}
           />
         </MuiThemeProvider>
         {this.props.children}

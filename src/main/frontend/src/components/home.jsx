@@ -15,6 +15,7 @@ const helpStyle = {
 
 const helpText = "For buy car you should log in";
 
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +27,9 @@ class Home extends Component {
     }
 
     render() {
-        if (this.props.cars.data.length == 0) return <h1>List is empty</h1>;
-        return (
-            <div>
+
+        if(this.props.cars.showCars){
+            return <div>
                 <MuiThemeProvider>
                     <Table selectable={false}>
                         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -56,12 +57,16 @@ class Home extends Component {
                                         />
                                     </TableRowColumn>
                                 </TableRow>
-                        ))}
+                            ))}
                         </TableBody>
                     </Table>
                 </MuiThemeProvider>
-            </div>);
-    }
+            </div>;
+        }else{
+            return <h1>List is empty</h1>;
+        }
+    };
+
 }
 
 function mapStateToProps(state) {
