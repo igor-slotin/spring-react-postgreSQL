@@ -35,8 +35,6 @@ const style = {
 class Registration extends React.Component {
     constructor(props){
         super(props);
-
-        console.log(props);
         this.actionRegistration = this.props.actions.registration;
         this.message = props.message;
     }
