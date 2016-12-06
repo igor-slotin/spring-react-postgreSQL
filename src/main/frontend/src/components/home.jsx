@@ -7,6 +7,7 @@ import {
 } from 'material-ui/Table';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 
 import * as actions from '../actions/home'
 import auth from '../services/auth';
@@ -28,6 +29,13 @@ class Home extends Component {
 
   componentWillMount() {
     this.props.actions.loadCars();
+  }
+
+  byCar(carId) {
+    if (!this.checkUserLogin()) return;
+    this.props.actions.buyingCar(carId).then(() => {
+      this.props.actions.loadCars();
+    });
   }
 
   render() {
@@ -57,6 +65,7 @@ class Home extends Component {
                     <FlatButton label="Buy"
                                 secondary={this.checkUserLogin()}
                                 disabled={!this.checkUserLogin()}
+                                onClick={() => this.byCar(row.id)}
                     />
                   </TableRowColumn>
                 </TableRow>
@@ -64,9 +73,15 @@ class Home extends Component {
             </TableBody>
           </Table>
         </MuiThemeProvider>
+        <MuiThemeProvider>
+          <Snackbar
+            open={this.props.cars.message}
+            message={this.props.cars.messageText}
+          />
+        </MuiThemeProvider>
       </div>;
     } else {
-      return <h1>List is empty</h1>;
+      return <h1>There is no cars for sell</h1>;
     }
   };
 

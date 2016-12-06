@@ -19,6 +19,7 @@ import Empty from './components/empty.jsx';
 import Login from './components/login.jsx';
 import User from './components/user/index.jsx';
 import auth from './services/auth'
+import AddCar from './components/add-car.jsx';
 import Registration from './components/registration.jsx';
 
 
@@ -84,6 +85,7 @@ render((
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Hello}/>
+        <Route path="/add" component={AddCar}/>
         <Route path="/empty" component={Empty}/>
         <Route path="/login" component={Login}/>
         <Route path="/user" component={User}/>

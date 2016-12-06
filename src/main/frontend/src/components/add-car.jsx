@@ -15,127 +15,125 @@ import MenuItem from 'material-ui/MenuItem';
 
 
 const style = {
-    mainBlock: {
-        padding: '2em',
-        margin: "0 auto",
-        maxWidth: "500px",
-        minWidth: "100px",
-        textAlign: "center"
-    },
-    TextFieldStyle: {
-        "marginBottom": "30px"
-    },
-    PaperStyle: {
-        width: "100%",
-        height: "100%"
-    },
-    BackButtonStyle: {
-        margin: "40px 40px"
-    }
+  mainBlock: {
+    padding: '2em',
+    margin: "0 auto",
+    maxWidth: "500px",
+    minWidth: "100px",
+    textAlign: "center"
+  },
+  TextFieldStyle: {
+    "marginBottom": "30px"
+  },
+  PaperStyle: {
+    width: "100%",
+    height: "100%"
+  },
+  BackButtonStyle: {
+    margin: "40px 40px"
+  }
 };
 
 class AddCar extends React.Component {
-    constructor(props){
-        super(props);
-        console.log(props);
-        this.years = this.generateTheYear();
+  constructor(props) {
+    super(props);
+    this.years = this.generateYears();
+  }
+
+  generateYears() {
+    const years = [];
+    const depthYears = 60;
+    const currentYear = new Date().getFullYear();
+    const initialValue = currentYear - depthYears;
+
+    for (let count = 0; count <= depthYears; count++) {
+      years.push(initialValue + count)
     }
 
-    generateTheYear(){
-        const years = [];
-        const depthYears = 60;
-        const currentYear = new Date().getFullYear();
-        const initialValue = currentYear - depthYears;
+    return years;
+  }
 
-        for (let count = 0; count <= depthYears; count++) {
-            years.push(initialValue+count)
-        }
+  changeModel(event) {
+    this.props.actions.changeModel(event.target.value);
+  }
 
-        return years;
-    }
+  changeYear(event, key, payload) {
+    this.props.actions.changeYear(payload);
+  }
 
-    changeModel(event){
-        this.props.actions.changeModel(event.target.value);
-    }
+  changeColor(event) {
+    this.props.actions.changeColor(event.target.value);
+  }
 
-    changeYear(event,key,payload){
-        this.props.actions.changeYear(payload);
-    }
+  changePrice(event) {
+    this.props.actions.changePrice(event.target.value);
+  }
 
-    changeColor(event){
-        this.props.actions.changeColor(event.target.value);
-    }
+  goBack() {
+    hashHistory.goBack()
+  }
 
-    changePrice(event){
-        this.props.actions.changePrice(event.target.value);
-    }
+  addCar() {
+    let { model, color, price, year } = this.props;
+    this.props.actions.addCar({ model, color, price, year });
+  }
 
-    goBack() {
-        hashHistory.goBack()
-    }
+  render() {
+    return <MTP>
+      <Paper style={style.PaperStyle}>
+        <FloatingActionButton style={style.BackButtonStyle} onClick={this.goBack}>
+          <BackButton />
+        </FloatingActionButton>
+        <div style={style.mainBlock}>
+          <TextField value={this.props.model} style={style.TextFieldStyle}
+                     hintText="Model"
+                     onChange={this.changeModel.bind(this)}
+          />
+          <br/>
+          <SelectField
+            value={this.props.year}
+            onChange={this.changeYear.bind(this)}
+            maxHeight={200}
+          >{
+            this.years.map((year) => {
+              return <MenuItem value={year} key={year} primaryText={`${year}`}/>
+            })
+          }
+          </SelectField>
 
-    addCar(){
-       let {model,color,price,year} = this.props;
-       this.props.actions.addCar({model,color,price,year});
-    }
+          <TextField value={this.props.color} style={style.TextFieldStyle}
+                     hintText="Color"
+                     onChange={this.changeColor.bind(this)}
+          />
+          <br/>
+          <TextField value={this.props.price} style={style.TextFieldStyle}
+                     hintText="Price"
+                     onChange={this.changePrice.bind(this)}
+          />
 
-    render() {
-        return <MTP>
-            <Paper style={style.PaperStyle}>
-                <FloatingActionButton style={style.BackButtonStyle} onClick={this.goBack}>
-                    <BackButton />
-                </FloatingActionButton>
-                <div style={style.mainBlock}>
-                    <TextField value={this.props.model} style={style.TextFieldStyle}
-                               hintText="Model"
-                               onChange={this.changeModel.bind(this)}
-                    />
-                    <br/>
-                    <SelectField
-                        value={this.props.year}
-                        onChange={this.changeYear.bind(this)}
-                        maxHeight={200}
-                    >{
-                        this.years.map((year) => {
-                            return <MenuItem value={year} key={year} primaryText={`${year}`} />
-                        })
-                    }
-                    </SelectField>
+          <RaisedButton disabled={this.props.signUpDisabled} onClick={this.addCar.bind(this)} label="ADD CAR"
+                        fullWidth={true}/>
 
-                    <TextField value={this.props.color} style={style.TextFieldStyle}
-                               hintText="Color"
-                               onChange={this.changeColor.bind(this)}
-                    />
-                    <br/>
-                    <TextField value={this.props.price} style={style.TextFieldStyle}
-                               hintText="Price"
-                               onChange={this.changePrice.bind(this)}
-                    />
+          <Snackbar
+            open={this.props.message}
+            message={this.props.messageText}
+          />
 
-                    <RaisedButton disabled={this.props.signUpDisabled} onClick={this.addCar.bind(this)} label="ADD CAR" fullWidth={true} />
-
-                    <Snackbar
-                        open={this.props.message}
-                        message={this.props.messageText}
-                    />
-
-                </div>
-            </Paper>
-        </MTP>;
-    }
+        </div>
+      </Paper>
+    </MTP>;
+  }
 }
 
 
 function mapStateToProps(state) {
-    return state.addCar;
+  return state.addCar;
 }
 
 function mapDispatch(dispatch) {
-    return {
-        actions: bindActionCreators(actions, dispatch)
-    }
-
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
 }
-
 
 export default connect(mapStateToProps, mapDispatch)(AddCar);

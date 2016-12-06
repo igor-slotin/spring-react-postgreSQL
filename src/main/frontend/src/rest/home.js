@@ -1,5 +1,15 @@
 import endpoints from '../endpoints';
+import fetcher from 'fetcher';
 
 export const getCars = () => {
-  return fetch(`${endpoints}/api/car`).then(res => res.json())
+  return fetcher(`${endpoints}/api/car`);
+};
+
+export const byCar = (userId, carId) => {
+  return fetcher(`${endpoints}/api/purchase/${userId}/${carId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 };

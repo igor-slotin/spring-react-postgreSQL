@@ -13,104 +13,104 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 const style = {
-    mainBlock: {
-        padding: '2em',
-        margin: "0 auto",
-        maxWidth: "500px",
-        minWidth: "100px",
-        textAlign: "center"
-    },
-    TextFieldStyle: {
-        "marginBottom": "30px"
-    },
-    PaperStyle: {
-        width: "100%",
-        height: "100%"
-    },
-    BackButtonStyle: {
-        margin: "40px 40px"
-    }
+  mainBlock: {
+    padding: '2em',
+    margin: "0 auto",
+    maxWidth: "500px",
+    minWidth: "100px",
+    textAlign: "center"
+  },
+  TextFieldStyle: {
+    "marginBottom": "30px"
+  },
+  PaperStyle: {
+    width: "100%",
+    height: "100%"
+  },
+  BackButtonStyle: {
+    margin: "40px 40px"
+  }
 };
 
 class Registration extends React.Component {
-    constructor(props){
-        super(props);
-        this.actionRegistration = this.props.actions.registration;
-        this.message = props.message;
-    }
+  constructor(props) {
+    super(props);
+    this.actionRegistration = this.props.actions.registration;
+    this.message = props.message;
+  }
 
-    changeUserName(event){
-        this.props.actions.inputUsername(event.target.value);
-    }
+  changeUserName(event) {
+    this.props.actions.inputUsername(event.target.value);
+  }
 
-    changePassword(event){
-        this.props.actions.inputPasswords(event.target.value,this.props.confirmPassword);
-    }
+  changePassword(event) {
+    this.props.actions.inputPasswords(event.target.value, this.props.confirmPassword);
+  }
 
-    changeConfirmPassword(event){
-        this.props.actions.inputPasswords(this.props.password,event.target.value);
-    }
+  changeConfirmPassword(event) {
+    this.props.actions.inputPasswords(this.props.password, event.target.value);
+  }
 
-    goBack() {
-        hashHistory.goBack()
-    }
+  goBack() {
+    hashHistory.goBack()
+  }
 
-    registration(){
-        console.log(this.props.username,this.props.password);
-        this.actionRegistration(this.props.username,this.props.password);
-    }
+  registration() {
+    this.actionRegistration(this.props.username, this.props.password);
+  }
 
-    render() {
-        return <MTP>
-            <Paper style={style.PaperStyle}>
-                <FloatingActionButton style={style.BackButtonStyle} onClick={this.goBack}>
-                    <BackButton />
-                </FloatingActionButton>
-                <div style={style.mainBlock}>
-                    <TextField value={this.props.username} style={style.TextFieldStyle}
-                               hintText="User name"
-                               onChange={this.changeUserName.bind(this)}
+  render() {
+    return <MTP>
+      <Paper style={style.PaperStyle}>
+        <FloatingActionButton style={style.BackButtonStyle} onClick={this.goBack}>
+          <BackButton />
+        </FloatingActionButton>
+        <div style={style.mainBlock}>
+          <TextField value={this.props.username} style={style.TextFieldStyle}
+                     hintText="User name"
+                     onChange={this.changeUserName.bind(this)}
 
-                    />
-                    <br/>
-                    <TextField value={this.props.password} style={style.TextFieldStyle}
-                               hintText="Password"
-                               type="password"
-                               onChange={this.changePassword.bind(this)}
+          />
+          <br/>
+          <TextField value={this.props.password} style={style.TextFieldStyle}
+                     hintText="Password"
+                     type="password"
+                     onChange={this.changePassword.bind(this)}
 
-                    />
-                    <TextField value={this.props.confirmPassword} style={style.TextFieldStyle}
-                               type="password"
-                               hintText="Confirm password"
-                               onChange={this.changeConfirmPassword.bind(this)}
-                               errorText={this.props.passwordFailure}
+          />
+          <TextField value={this.props.confirmPassword} style={style.TextFieldStyle}
+                     type="password"
+                     hintText="Confirm password"
+                     onChange={this.changeConfirmPassword.bind(this)}
+                     errorText={this.props.passwordFailure}
 
-                    />
+          />
 
-                    <RaisedButton disabled={this.props.signUpDisabled} onClick={this.registration.bind(this)} label="SIGN UP" fullWidth={true} />
+          <RaisedButton disabled={this.props.signUpDisabled} onClick={this.registration.bind(this)} label="SIGN UP"
+                        fullWidth={true}/>
 
-                    <Snackbar
-                        open={this.props.message}
-                        message={this.props.messageText}
-                        autoHideDuration={4000}
-                        onRequestClose={this.handleRequestClose}
-                    />
+          <Snackbar
+            open={this.props.message}
+            message={this.props.messageText}
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestClose}
+          />
 
-                </div>
-            </Paper>
-        </MTP>;
-    }
+        </div>
+      </Paper>
+    </MTP>;
+  }
 }
 
 
 function mapStateToProps(state) {
-    return state.registration;
+  return state.registration;
 }
 
 function mapDispatch(dispatch) {
-    return {
-        actions: bindActionCreators(actions, dispatch)
-    }
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
 
 }
 

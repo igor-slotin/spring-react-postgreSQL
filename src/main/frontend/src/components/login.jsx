@@ -4,7 +4,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import BackButton from 'material-ui/svg-icons/navigation/arrow-back';
-import {hashHistory} from 'react-router';
+import { hashHistory } from 'react-router';
+import Snackbar from 'material-ui/Snackbar';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -46,11 +47,12 @@ class Login extends React.Component {
   changePassword(e) {
     this.props.actions.setPassword(e.target.value)
   }
+
   submitForm() {
     this.props.actions.login(this.props.login.username, this.props.login.password);
   }
 
-  goBack(params) {
+  goBack() {
     hashHistory.goBack()
   }
 
@@ -59,28 +61,36 @@ class Login extends React.Component {
   }
 
   render() {
-    return <MTP>
-      <div>
-        <FloatingActionButton style={style.BackButtonStyle} onClick={this.goBack}>
-          <BackButton />
-        </FloatingActionButton>
-        <div style={style.mainBlock}>
-          <TextField style={style.TextFieldStyle}
-                     hintText="User name"
-                     value={this.props.login.username}
-                     onChange={this.changeUsername.bind(this)}
-          />
-          <br/>
-          <TextField style={style.TextFieldStyle}
-                     type="password"
-                     hintText="Password"
-                     value={this.props.login.password}
-                     onChange={this.changePassword.bind(this)}
-          />
-          <RaisedButton onClick={this.submitForm.bind(this)} label="LOGIN" fullWidth={true}/>
+    return (<div>
+      <MTP>
+        <div>
+          <FloatingActionButton style={style.BackButtonStyle} onClick={this.goBack}>
+            <BackButton />
+          </FloatingActionButton>
+          <div style={style.mainBlock}>
+            <TextField style={style.TextFieldStyle}
+                       hintText="User name"
+                       value={this.props.login.username}
+                       onChange={this.changeUsername.bind(this)}
+            />
+            <br/>
+            <TextField style={style.TextFieldStyle}
+                       type="password"
+                       hintText="Password"
+                       value={this.props.login.password}
+                       onChange={this.changePassword.bind(this)}
+            />
+            <RaisedButton onClick={this.submitForm.bind(this)} label="LOGIN" fullWidth={true}/>
+          </div>
         </div>
-      </div>
-    </MTP>;
+      </MTP>
+      <MTP>
+        <Snackbar
+          open={this.props.login.message}
+          message={this.props.login.messageText}
+        />
+      </MTP>
+    </div>);
   }
 }
 

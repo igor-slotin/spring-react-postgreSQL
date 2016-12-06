@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { hashHistory } from 'react-router';
+
 import * as actions from '../../actions/user/index';
 
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -30,9 +32,14 @@ class User extends React.Component {
       tab: 'cars'
     }
   }
+
   componentWillMount() {
     this.props.actions.checkUser();
     this.props.actions.getUserData();
+  }
+
+  addCar() {
+    hashHistory.push('/add')
   }
 
   handleTabChange(value) {
@@ -60,8 +67,8 @@ class User extends React.Component {
           value={this.state.tab}
           onChange={this.handleTabChange.bind(this)}
         >
-          <Tab label="My Cars" value="cars" style={style.tabElement} >
-            <FlatButton style={style.addButton} label="Add Car" secondary={true}/>
+          <Tab label="My Cars" value="cars" style={style.tabElement}>
+            <FlatButton style={style.addButton} label="Add Car" onClick={this.addCar.bind(this)} secondary={true}/>
             <div>
               <CarTable
                 cars={this.props.user.data.cars}
@@ -69,7 +76,7 @@ class User extends React.Component {
               />
             </div>
           </Tab>
-          <Tab label="My Account" value="account" style={style.tabElement} >
+          <Tab label="My Account" value="account" style={style.tabElement}>
             <div>
               <Account
                 balance={this.props.user.data.account.balance}

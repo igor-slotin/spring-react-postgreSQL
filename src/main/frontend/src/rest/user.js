@@ -1,16 +1,15 @@
 import endpoints from '../endpoints';
+import fetcher from 'fetcher'
 
-export const getUserData = userId => {
-  return fetch(`${endpoints}/api/user/${userId}`).then(res => res.json())
-};
+export const getUserData = userId => fetcher(`${endpoints}/api/user/${userId}`);
 
 export const changeIsSell = (userId, carId) => {
-  return fetch(`${endpoints}/api/car/${userId}/${carId}`, {
+  return fetcher(`${endpoints}/api/car/${userId}/${carId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-  })
+  });
 };
 
 export const increaseBalance = (userId, summ) => {
@@ -20,7 +19,7 @@ export const increaseBalance = (userId, summ) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      balance: "" + summ
+      balance: summ
     })
-  })
+  });
 };
