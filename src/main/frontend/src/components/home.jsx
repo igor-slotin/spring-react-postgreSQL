@@ -11,9 +11,14 @@ import Snackbar from 'material-ui/Snackbar';
 
 import * as actions from '../actions/home'
 import auth from '../services/auth';
+import CircularProgress from 'material-ui/CircularProgress';
 
 const helpStyle = {
   paddingLeft: '30px'
+};
+
+const headStyle = {
+  textAlign: 'center'
 };
 
 const helpText = "For buy car you should log in";
@@ -80,8 +85,12 @@ class Home extends Component {
           />
         </MuiThemeProvider>
       </div>;
+    } else if (this.props.cars.fetching) {
+      return <MuiThemeProvider>
+        <CircularProgress />
+      </MuiThemeProvider>
     } else {
-      return <h1>There is no cars for sell</h1>;
+      return <h1 style={headStyle}>There is no cars for sell</h1>;
     }
   };
 
