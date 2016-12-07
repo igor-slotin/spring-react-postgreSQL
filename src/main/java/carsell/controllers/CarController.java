@@ -15,17 +15,17 @@ import java.util.Collection;
 public class CarController {
     private final CarService carService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    @RequestMapping(method = RequestMethod.GET)
     Collection<Car> getCar() {
         return this.carService.getSellCars();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{userId}/add")
+    @RequestMapping(method = RequestMethod.POST, value = "/{userId}")
     ResponseEntity<?> addCar(@PathVariable Long userId, @RequestBody Car input) {
         return ResponseEntity.ok(this.carService.addCar(userId, input));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/update/{userId}/{carId}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/{userId}/{carId}")
     ResponseEntity<?> updateIsSell(@PathVariable Long userId, @PathVariable Long carId) {
         return ResponseEntity.ok(this.carService.updateIsSell(userId, carId));
     }

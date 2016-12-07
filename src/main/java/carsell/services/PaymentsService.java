@@ -1,6 +1,6 @@
 package carsell.services;
 
-import carsell.exceptions.account.NotAvailableOnBalanceException;
+import carsell.exceptions.payments.NotAvailableOnBalanceException;
 import carsell.models.Payments;
 import carsell.models.Purchase;
 import carsell.models.User;

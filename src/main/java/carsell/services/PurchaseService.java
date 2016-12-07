@@ -1,6 +1,5 @@
 package carsell.services;
 
-import carsell.exceptions.account.NotAvailableOnBalanceException;
 import carsell.exceptions.purchase.CarIsNotSellException;
 import carsell.exceptions.purchase.SameUserException;
 import carsell.models.Car;

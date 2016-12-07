@@ -1,0 +1,6 @@
+export const SET_USERNAME = 'SET_USERNAME';
+export const SET_PASSWORD = 'SET_PASSWORD';
+export const CHECK_USER = 'CHECK_USER';
+export const CHECK_USER_SUCCESS = 'CHECK_USER_SUCCESS';
+export const CHECK_USER_FAILED = 'CHECK_USER_FAILED';
+export const POST_QUERY = 'POST_QUERY_CHECK_USER';

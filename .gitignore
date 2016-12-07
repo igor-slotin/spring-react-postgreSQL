@@ -9,3 +9,4 @@ src/main/resources/application.properties
 target
 target/
 target/*
+/src/main/resources/application.properties
