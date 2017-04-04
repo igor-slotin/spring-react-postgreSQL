@@ -1,6 +1,6 @@
 # spring-react-postgreSQL example
 
-Laboratory work. Spring + JPA + PostgreSQL
+Current project is example of using Spring + JPA + PostgreSQL for backend and react + redux for frontend parts.
 
 For run project 
  - install maven
