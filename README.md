@@ -1,4 +1,4 @@
-# spring-lab
+# spring-react-postgreSQL example
 
 Laboratory work. Spring + JPA + PostgreSQL
 
